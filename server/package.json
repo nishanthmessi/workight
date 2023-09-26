@@ -1,6 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "type": "module",
   "description": "Server for workight application",
   "main": "server.js",
   "scripts": {
