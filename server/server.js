@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/users', userRoutes)
 
+// Initializing custom middleware
 app.use(notFound)
 app.use(errorHandler)
 
