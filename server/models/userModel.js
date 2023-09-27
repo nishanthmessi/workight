@@ -15,6 +15,12 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    currentCompany: String,
+    bio: String,
+    description: String,
+    experience: String,
+    education: String,
+    website: String,
   },
   {
     timestamps: true,
@@ -31,6 +37,7 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt)
 })
 
+// Bcrypt setup for comparing password
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
 }
