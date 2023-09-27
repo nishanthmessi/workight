@@ -18,7 +18,12 @@ const userSchema = mongoose.Schema(
     currentCompany: String,
     bio: String,
     description: String,
-    experience: String,
+    experience: {
+      companyName: String,
+      role: String,
+      jobDescription: String,
+    },
+
     education: String,
     website: String,
   },

@@ -62,12 +62,18 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
   if (user) {
     user.name = req.body.name || user.name
+    user.bio = req.body.bio || user.bio
+    user.description = req.body.description || user.description
+    user.currentCompany = req.body.currentCompany || user.currentCompany
 
     const updatedUser = await user.save()
 
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,
+      bio: updatedUser.bio,
+      description: updatedUser.description,
+      currentCompany: updatedUser.currentCompany,
     })
   } else {
     res.status(404)
