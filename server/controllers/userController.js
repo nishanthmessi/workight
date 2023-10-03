@@ -54,7 +54,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc - Update user
+// @desc - Update user basic details
 // @route Patch /api/user/profile
 // @access Private
 const updateUserProfile = asyncHandler(async (req, res) => {
@@ -64,7 +64,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.name = req.body.name || user.name
     user.bio = req.body.bio || user.bio
     user.description = req.body.description || user.description
-    user.currentCompany = req.body.currentCompany || user.currentCompany
+    // user.currentCompany = req.body.currentCompany || user.currentCompany
 
     const updatedUser = await user.save()
 
@@ -73,12 +73,50 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       bio: updatedUser.bio,
       description: updatedUser.description,
-      currentCompany: updatedUser.currentCompany,
+      //currentCompany: updatedUser.currentCompany,
     })
   } else {
     res.status(404)
     throw new Error('User not found')
   }
+})
+
+// @desc - Add user experience details
+// @route Post /api/user/profile/experience
+// @access Private
+const createWorkExperince = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    user.experience.companyName = req.body.experience.companyName
+
+    const userWorkExperience = await user.save()
+    res.json({
+      _id: userWorkExperience._id,
+      companyName: userWorkExperience.experience.companyName,
+    })
+  } else {
+    res.status(401)
+    throw new Error('Invalid email or password')
+  }
+})
+
+// @desc - Update user experience details
+// @route Patch /api/user/profile
+// @access Private
+const updateWorkExperince = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    user.experience.companyName =
+      req.body.experience.companyName || user.experience.companyName
+  }
+
+  const updatedUserDetails = await user.save()
+  res.json({
+    _id: updatedUser._id,
+    companyName: updatedUserDetails.experience.companyName,
+  })
 })
 
 // @desc - Logout user
@@ -93,4 +131,10 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User logged out' })
 })
 
-export { registerUser, authUser, updateUserProfile, logoutUser }
+export {
+  registerUser,
+  authUser,
+  updateUserProfile,
+  createWorkExperince,
+  logoutUser,
+}

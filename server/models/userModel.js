@@ -15,8 +15,11 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    currentCompany: String,
-    bio: String,
+    //currentCompany: String,
+    bio: {
+      type: String,
+      maxlength: 30,
+    },
     description: String,
     experience: {
       companyName: String,
