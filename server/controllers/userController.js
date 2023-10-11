@@ -81,7 +81,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc - Add user experience details
+// @desc - Add user work experience details
 // @route Post /api/user/profile/experience
 // @access Private
 const createWorkExperince = asyncHandler(async (req, res) => {
@@ -91,17 +91,18 @@ const createWorkExperince = asyncHandler(async (req, res) => {
     user.experience.companyName = req.body.experience.companyName
 
     const userWorkExperience = await user.save()
+
     res.json({
       _id: userWorkExperience._id,
       companyName: userWorkExperience.experience.companyName,
     })
   } else {
     res.status(401)
-    throw new Error('Invalid email or password')
+    throw new Error('Unable to update experience')
   }
 })
 
-// @desc - Update user experience details
+// @desc - Update user work experience details
 // @route Patch /api/user/profile
 // @access Private
 const updateWorkExperince = asyncHandler(async (req, res) => {

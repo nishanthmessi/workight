@@ -20,7 +20,11 @@ const userSchema = mongoose.Schema(
       type: String,
       maxlength: 30,
     },
-    description: String,
+    description: {
+      type: String,
+      maxlength: 256,
+    },
+
     experience: {
       companyName: String,
       role: String,
